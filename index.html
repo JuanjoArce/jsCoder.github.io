@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Finanzas Personales</title>
+</head>
+<body>
+  <h1>Registro de Personas</h1>
+
+    <button id="agregarPersona">Agregar Persona</button>
+    <div id="personaForm" style="display: none;">
+        <input type="text" id="nombre" placeholder="Nombre">
+        <input type="text" id="apellido" placeholder="Apellido">
+        <input type="number" id="ingreso" placeholder="Ingresos">
+        <input type="number" id="egreso" placeholder="Egresos">
+        <button id="guardarPersona">Guardar</button>
+    </div>
+
+    <table id="personasTable">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Ingresos</th>
+                <th>Egresos</th>
+                <th>Saldo</th>
+            </tr>
+        </thead>
+        <tbody id="personasTableBody">
+        </tbody>
+    </table>
+  
+  <script src="main.js"></script>
+</body>
+</html>
