@@ -1,3 +1,23 @@
+$(document).ready(function () {
+    const apiKey = '91a333bff23b487bb955431e7cae2590'; 
+
+    $.get('https://openexchangerates.org/api/latest.json', { app_id: apiKey }, function (data) {
+
+        console.log(data);
+
+        $('#dolarValue').text(data.rates.USD);
+        $('#pesoArgentinoValue').text(data.rates.ARS);
+        $('#pesoUruguayoValue').text(data.rates.UYU);
+        
+        if (data.rates.BTC) {
+            $('#bitcoinValue').text(data.rates.BTC);
+        } else {
+            $('#bitcoinValue').text('No disponible');
+        }
+    });
+});
+
+
 function Persona(nombre, apellido, ingreso, egreso) {
     this.nombre = nombre;
     this.apellido = apellido;
@@ -47,6 +67,21 @@ function updatePersonasTable() {
         row.insertCell(2).textContent = persona.ingreso;
         row.insertCell(3).textContent = persona.egreso;
         row.insertCell(4).textContent = persona.saldo;
+
+        const accionesCell = row.insertCell(5);
+        const eliminarButton = document.createElement("button");
+        eliminarButton.textContent = "Eliminar";
+        eliminarButton.className = "btn btn-danger";
+        eliminarButton.addEventListener("click", () => eliminarPersona(i));
+        accionesCell.appendChild(eliminarButton);
+    }
+}
+
+function eliminarPersona(index) {
+    if (confirm("Seguro que deseas eliminar esta persona?")) {
+        personas.splice(index, 1);
+        saveToLocalStorage(personas);
+        updatePersonasTable();
     }
 }
 
@@ -63,7 +98,7 @@ function saveToLocalStorage(data) {
 
 function loadFromLocalStorage() {
     const data = localStorage.getItem("personasData");
-    return data ? JSON.parse(data) : null;
+    return data ? JSON.parse(data) : [];
 }
 
 updatePersonasTable();
